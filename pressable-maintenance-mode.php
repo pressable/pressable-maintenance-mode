@@ -107,8 +107,8 @@ function wp_maintenance_mode() {
             .press-top-line img {
                 width: 100%;
                 max-width: 210px;
-                height: 45px;
-                margin-top: 6px;
+                height: 35px;
+                margin-top: 12px;
             }
 
             @keyframes gradient {
@@ -127,14 +127,14 @@ function wp_maintenance_mode() {
         </style>
 
         <div class="press-top-line">
-            <img src="wp-content/plugins/pressable-maintenance-mode/images/pressable-logo-primary-reverse.svg" alt="Pressable - Managed WordPress Hosting" />
+            <img src="https://149443700.v2.pressablecdn.com/wp-content/uploads/2021/11/white_logo_Big-10-300x47.png" alt="Pressable - Managed WordPress Hosting" />
         </div>
         <div class="press-maintenance">
             <div>
                 <h1>We will be right back!</h1>
                 <p>This website is currently running a brief maintenance.</p>
             </div>
-            <img src="wp-content/plugins/pressable-maintenance-mode/images/server-stack@2x.png" alt="Hosting Servers" />
+            <img src="https://149443700.v2.pressablecdn.com/wp-content/uploads/2022/03/server-stack@2x-300x171.png" alt="Hosting Servers" />
         </div>
       ');
     }
