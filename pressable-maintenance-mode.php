@@ -4,7 +4,7 @@ Plugin Name: Pressable Maintenance Mode
 Plugin URI: https://pressable.com
 Description: A simple maintenance mode plugin
 Author: Pressable
-Version: 1.0.0
+Version: 1.0.1
 Author URI: https://pressable.com/
 License: GPL2
 */
