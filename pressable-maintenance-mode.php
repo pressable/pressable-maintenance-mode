@@ -1,30 +1,48 @@
 <?php
 /*
-Plugin Name: Pressable Maintenance Mode
-Plugin URI: https://pressable.com
-Description: A simple maintenance mode plugin
+Plugin Name: Maintenance Mode
+Plugin URI: https://github.com/pressable/pressable-maintenance-mode
+Description: Effortlessly enable maintenance mode on your website! When activated, non-logged-in visitors or users without editing privileges are greeted with a stylish, user-friendly notice indicating that the website is undergoing maintenance.
 Author: Pressable
-Version: 1.0.3
+Version: 1.0.4
 Author URI: https://pressable.com/
 License: GPL2
 */
 
 
+// This condition checks whether PHP is being run from the command line interface (cli).
+// php_sapi_name(): This is a PHP function that returns the type of interface (Server API, SAPI) between the web server and PHP.
 if ( 'cli' == php_sapi_name() ) {
+    // If PHP is running from the command line, this line will immediately exit the script,
+    // preventing the rest of the code from executing.
     return;
 }
 
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-
-header("Cache-Control: post-check=0, pre-check=0", false);
-
-header("Pragma: no-cache");
-
-http_response_code(503);
-
 // Activate WordPress Maintenance Mode
 function wp_maintenance_mode() {
-    if ( !current_user_can('edit_themes') || !is_user_logged_in() ) {
+    // If the current user does not have the capability to edit themes or is not logged in.
+    if ( !current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
+        // Send a raw HTTP header to control the cache settings for the response being sent back to the client/browser
+        header( "Cache-Control: no-store, no-cache, must-revalidate, max-age=0" );
+
+        // The following header is specifying cache controls as well:
+        // - post-check: The freshness of the content directly after a POST request, set to 0 to prevent caching post-request.
+        // - pre-check: Similar to post-check but for pre-request content freshness, also set to 0 to avoid caching.
+        // The second parameter, false, indicates that this header should not replace a header previously set, which can allow multiple headers of the same type to be sent.
+        header( "Cache-Control: post-check=0, pre-check=0", false );
+
+        // The "Pragma: no-cache" header is utilized to ensure backward compatibility with HTTP/1.0 caches and clients,
+        // instructing them not to cache the response as well. While generally overridden by the Cache-Control header in HTTP/1.1,
+        // it's often used as an extra measure to prevent caching in older clients.
+        header( "Pragma: no-cache" );
+
+        // Set the HTTP response status code to 503 - Service Unavailable.
+        // This informs clients that the server is temporarily unable to handle the request,
+        // which is commonly used during maintenance mode or server downtime to notify both
+        // users and search engines that the unavailability is temporary.
+        http_response_code( 503 );
+
+
         wp_die('
         <style>
             #error-page {
@@ -155,5 +173,12 @@ function wp_maintenance_mode() {
     }
 }
 
-add_action('get_header', 'wp_maintenance_mode');
+// Attach the 'wp_maintenance_mode' function to the 'init' action hook.
+// 'init' is a WordPress hook that triggers after WordPress has finished loading
+// but before any headers are sent. Utilizing 'init' for maintenance mode
+// means that our custom function 'wp_maintenance_mode' will be executed at
+// this point in the request, allowing us to intervene early in the process,
+// displaying a maintenance message and preventing further loading of WordPress
+// assets and execution of queries in an effort to save resources.
+add_action( 'init', 'wp_maintenance_mode' );
 ?>
