@@ -4,7 +4,7 @@ Plugin Name: Maintenance Mode
 Plugin URI: https://github.com/pressable/pressable-maintenance-mode
 Description: Effortlessly enable maintenance mode on your website! When activated, non-logged-in visitors or users without editing privileges are greeted with a stylish, user-friendly notice indicating that the website is undergoing maintenance.
 Author: Pressable
-Version: 1.0.4
+Version: 1.0.5
 Author URI: https://pressable.com/
 License: GPL2
 */
@@ -20,6 +20,11 @@ if ( 'cli' == php_sapi_name() ) {
 
 // Activate WordPress Maintenance Mode
 function wp_maintenance_mode() {
+    // Exit if requesting an administration or login page
+    if ( is_admin() || strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false ) {
+      return;
+    }
+    
     // If the current user does not have the capability to edit themes or is not logged in.
     if ( !current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
         // Send a raw HTTP header to control the cache settings for the response being sent back to the client/browser
