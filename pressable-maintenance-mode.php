@@ -24,6 +24,7 @@ function wp_maintenance_mode() {
     if ( is_admin() || strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false ) {
       return;
     }
+    
     // If the current user does not have the capability to edit themes or is not logged in.
     if ( !current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
         // Send a raw HTTP header to control the cache settings for the response being sent back to the client/browser
