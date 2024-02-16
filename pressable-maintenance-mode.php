@@ -41,8 +41,13 @@ function wp_maintenance_mode() {
         // it's often used as an extra measure to prevent caching in older clients.
         header( "Pragma: no-cache" );
 
-        wp_die('
-        <style>
+        wp_die(
+        '<style>
+            /* Remove body border set by WordPress core wp_die */
+            body {
+                border: none;
+            }
+            
             #error-page {
                 margin: 0 !important;
                 width: 100%;
@@ -166,8 +171,9 @@ function wp_maintenance_mode() {
                     </svg>
                 </div>
             </div>
-        </div>
-      ');
+        </div>'
+        'Maintenance Mode', // Custom title for wp_die page
+      );
     }
 }
 
