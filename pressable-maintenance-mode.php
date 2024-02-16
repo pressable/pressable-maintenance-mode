@@ -171,7 +171,7 @@ function wp_maintenance_mode() {
                     </svg>
                 </div>
             </div>
-        </div>'
+        </div>',
         'Maintenance Mode', // Custom title for wp_die page
         array('response' => 503) // Set HTTP response to 503, informing the client that service is temporarily unavailable. Commonly used in maintenance modes to notify users and search engines that the downtime is temporary.
       );
