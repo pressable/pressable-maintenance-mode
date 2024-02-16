@@ -41,13 +41,6 @@ function wp_maintenance_mode() {
         // it's often used as an extra measure to prevent caching in older clients.
         header( "Pragma: no-cache" );
 
-        // Set the HTTP response status code to 503 - Service Unavailable.
-        // This informs clients that the server is temporarily unable to handle the request,
-        // which is commonly used during maintenance mode or server downtime to notify both
-        // users and search engines that the unavailability is temporary.
-        http_response_code( 503 );
-
-
         wp_die('
         <style>
             #error-page {
