@@ -4,7 +4,7 @@ Plugin Name: Maintenance Mode
 Plugin URI: https://github.com/pressable/pressable-maintenance-mode
 Description: Effortlessly enable maintenance mode on your website! When activated, non-logged-in visitors or users without editing privileges are greeted with a stylish, user-friendly notice indicating that the website is undergoing maintenance.
 Author: Pressable
-Version: 1.0.5
+Version: 1.0.6
 Author URI: https://pressable.com/
 License: GPL2
 */
